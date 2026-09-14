@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مهندسی انرژی — آینده از اینجا شروع می‌شود</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08090c;
+  --bg2:#0d0f14;
+  --surface:#111319;
+  --line:#1e2230;
+  --line2:#2a2f42;
+  --txt:#f4f6fa;
+  --muted:#7d8494;
+  --dim:#4d5464;
+  --accent:#00e5ff;
+  --accent2:#7c5cff;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  overflow-x:hidden; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent);color:#000}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 40px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(8,9,12,.7);
+  border-bottom:1px solid var(--line);
+  transition:padding .4s cubic-bezier(.2,.9,.3,1);
+}
+nav.compact{padding:14px 40px}
+.nav-brand{
+  display:flex;align-items:center;gap:14px;
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+}
+.nav-brand .mark{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,#00e5ff,#7c5cff);
+  display:grid;place-items:center;color:#000;font-size:14px;
+  transition:transform .3s;
+}
+.nav-brand:hover .mark{transform:rotate(12deg)}
+.nav-brand small{
+  display:block;font-size:10px;color:var(--muted);
+  font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  margin-top:1px;
+}
+.nav-links{display:flex;gap:36px;font-size:12px;letter-spacing:.02em}
+.nav-links a{color:var(--muted);text-decoration:none;transition:color .2s;font-weight:500}
+.nav-links a:hover{color:var(--txt)}
+@media(max-width:860px){.nav-links{display:none}nav{padding:18px 22px}nav.compact{padding:12px 22px}}
+
+/* ---------- LAYOUT ---------- */
+main{position:relative;z-index:2}
+section{padding:140px 40px;position:relative}
+@media(max-width:720px){section{padding:100px 22px}}
+.wrap{max-width:1240px;margin:0 auto}
+.wrap-sm{max-width:900px;margin:0 auto}
+
+/* ---------- HERO ---------- */
+#hero{
+  min-height:100vh;padding:0;display:grid;
+  grid-template-columns:1.15fr .85fr;align-items:center;
+  max-width:1400px;margin:0 auto;
+}
+.hero-left{padding:140px 40px 100px 40px}
+.hero-right{position:relative;height:100vh;min-height:560px}
+#hero3d{position:absolute;inset:0}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+  margin-bottom:36px;
+}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--accent)}
+.eyebrow .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+  animation:blink 2.5s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+h1{
+  font-size:clamp(44px,7vw,88px);
+  font-weight:800;letter-spacing:-.035em;line-height:1.02;
+  margin-bottom:36px;
+}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(120deg,#00e5ff 0%,#7c5cff 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero-desc{
+  font-size:16.5px;color:var(--muted);line-height:2;max-width:520px;
+  margin-bottom:48px;font-weight:400;
+}
+.hero-desc b{color:var(--txt);font-weight:600}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  padding:14px 26px;border-radius:12px;font-family:inherit;
+  font-weight:600;font-size:13px;letter-spacing:.01em;
+  cursor:pointer;border:none;text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:transform .25s cubic-bezier(.2,.9,.3,1.3),background .2s,border-color .2s;
+}
+.btn-primary{background:var(--accent);color:#000}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--txt);border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-meta{
+  position:absolute;bottom:40px;left:40px;
+  display:flex;gap:40px;
+  font-size:11px;color:var(--dim);letter-spacing:.08em;
+  text-transform:uppercase;font-weight:500;
+}
+.hero-meta span{display:flex;align-items:center;gap:8px}
+.hero-meta i{color:var(--accent);font-size:9px}
+
+@media(max-width:960px){
+  #hero{grid-template-columns:1fr}
+  .hero-right{height:60vh;min-height:420px;order:-1}
+  .hero-left{padding:40px 22px 80px}
+  .hero-meta{position:static;padding:40px 22px 0;justify-content:center;flex-wrap:wrap;gap:22px}
+}
+
+/* ---------- SECTION HEAD ---------- */
+.sec-eyebrow{
+  display:flex;align-items:center;gap:14px;
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+  margin-bottom:26px;
+}
+.sec-eyebrow::after{content:'';flex:0 0 34px;height:1px;background:var(--line2)}
+.sec-eyebrow .num{color:var(--accent);font-weight:700}
+h2.sec-title{
+  font-size:clamp(30px,4.2vw,52px);
+  font-weight:700;letter-spacing:-.03em;line-height:1.12;
+  margin-bottom:20px;max-width:820px;
+}
+h2.sec-title em{font-style:normal;color:var(--accent)}
+p.sec-desc{
+  font-size:15.5px;color:var(--muted);max-width:640px;
+  line-height:2;font-weight:400;
+}
+.sec-header{margin-bottom:72px}
+@media(max-width:720px){.sec-header{margin-bottom:52px}}
+
+/* ---------- STATS ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;
+}
+.stat{background:var(--bg);padding:32px 26px;transition:background .3s}
+.stat:hover{background:var(--surface)}
+.stat .ico{
+  font-size:15px;color:var(--accent);margin-bottom:22px;
+  width:36px;height:36px;display:grid;place-items:center;
+  border:1px solid var(--line2);border-radius:9px;
+}
+.stat .num{
+  font-size:34px;font-weight:800;letter-spacing:-.03em;
+  margin-bottom:8px;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.stat .num small{font-size:13px;font-weight:500;color:var(--muted);margin-right:4px}
+.stat .lbl{font-size:12.5px;color:var(--muted);line-height:1.7}
+@media(max-width:840px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.stats{grid-template-columns:1fr}}
+
+/* ---------- SIMULATOR ---------- */
+#sim{background:linear-gradient(180deg,transparent,var(--bg2) 40%,var(--bg2) 60%,transparent)}
+.sim-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2px;
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--line)}
+@media(max-width:960px){.sim-wrap{grid-template-columns:1fr}}
+.sim-panel{background:var(--bg);padding:32px}
+.sim-panel h3{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:30px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.sim-panel h3 span{color:var(--accent);font-size:11px;font-weight:700}
+
+.slider{margin-bottom:22px}
+.slider-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;margin-bottom:10px;font-weight:500;
+}
+.slider-head .name{display:flex;align-items:center;gap:10px}
+.slider-head .name i{
+  width:8px;height:8px;border-radius:50%;background:var(--c);
+  box-shadow:0 0 8px var(--c);
+}
+.slider-head .val{
+  font-family:'Vazirmatn';font-weight:700;font-size:13px;
+  color:var(--c);font-variant-numeric:tabular-nums;
+}
+input[type=range]{
+  width:100%;height:2px;appearance:none;background:var(--line2);
+  border-radius:2px;cursor:pointer;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--c);cursor:pointer;
+  box-shadow:0 0 0 4px rgba(255,255,255,.02);
+  transition:transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25)}
+input[type=range]::-moz-range-thumb{
+  width:14px;height:14px;border:none;border-radius:50%;
+  background:var(--c);cursor:pointer;
+}
+
+.presets{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-top:30px;padding-top:26px;
+  border-top:1px solid var(--line);
+}
+.preset{
+  flex:1;min-width:110px;padding:11px 12px;
+  border-radius:10px;font-family:inherit;font-size:11px;
+  font-weight:500;cursor:pointer;
+  color:var(--muted);background:transparent;
+  border:1px solid var(--line2);transition:.2s;
+  letter-spacing:.02em;
+}
+.preset:hover{color:var(--accent);border-color:var(--accent)}
+
+.sim-visual{
+  background:
+    linear-gradient(rgba(4,7,12,.28),rgba(4,7,12,.52)),
+    url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Azadi%20and%20Milad%20towers%20in%20a%20single%20shot.jpg");
+  background-size:cover;background-position:center;
+  position:relative;min-height:520px;display:flex;flex-direction:column;
+}
+#simCanvas{width:100%;flex:1;display:block}
+.sim-status{
+  padding:16px 32px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+.sim-status b{color:var(--accent);font-weight:700}
+
+.metrics{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);border-top:1px solid var(--line);
+}
+.metric{background:var(--bg);padding:18px 20px}
+.metric .lbl{
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;font-weight:500;
+  display:flex;align-items:center;gap:7px;
+}
+.metric .lbl i{color:var(--accent);font-size:10px}
+.metric .val{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.metric .val small{font-size:10.5px;font-weight:500;color:var(--muted);margin-right:4px;letter-spacing:0}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.city-credit{position:absolute;left:18px;bottom:84px;z-index:3;font-size:8.5px;color:rgba(255,255,255,.55);background:rgba(0,0,0,.38);padding:5px 8px;border-radius:7px;backdrop-filter:blur(5px)}
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+.scenario{min-height:58px;padding:10px 12px;border-radius:10px;font-family:inherit;font-size:10.5px;font-weight:600;cursor:pointer;color:var(--muted);background:rgba(255,255,255,.01);border:1px solid var(--line2);transition:.2s;text-align:right}
+.scenario:hover,.scenario.active{color:var(--accent);border-color:var(--accent);background:rgba(0,229,255,.05)}
+.scenario small{display:block;color:var(--dim);font-size:8.5px;font-weight:400;margin-top:2px}
+.scenario-info{margin-top:12px;padding:12px 14px;border-radius:10px;background:rgba(124,92,255,.06);border:1px solid rgba(124,92,255,.18);color:var(--muted);font-size:10.5px;line-height:1.8}
+@media(max-width:900px){.scenario-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.scenario-grid{grid-template-columns:1fr}.city-credit{bottom:96px;left:10px}}
+
+/* ---------- INTRO / PROGRAM ---------- */
+#intro{background:linear-gradient(180deg,var(--bg),#0a0d13)}
+.intro-grid{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);
+  border-radius:18px;overflow:hidden;
+}
+.intro-card{background:var(--bg);padding:30px;min-height:210px}
+.intro-card:hover{background:var(--surface)}
+.intro-card .tag{
+  font-size:10px;letter-spacing:.16em;color:var(--accent);
+  text-transform:uppercase;font-weight:700;margin-bottom:14px;
+}
+.intro-card h3{font-size:18px;margin-bottom:12px}
+.intro-card p,.intro-card li{font-size:12.5px;color:var(--muted);line-height:2}
+.intro-card ul{padding-right:18px;margin:0}
+.intro-wide{grid-column:1/-1}
+.semesters{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;
+}
+.semester{
+  border:1px solid var(--line2);border-radius:12px;padding:14px;
+  background:rgba(255,255,255,.015);
+}
+.semester b{display:block;color:var(--txt);font-size:12px;margin-bottom:7px}
+.semester span{display:block;color:var(--muted);font-size:11px;line-height:1.9}
+.path-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.path{
+  border:1px solid var(--line2);border-radius:12px;padding:16px;
+  background:linear-gradient(145deg,rgba(0,229,255,.04),transparent);
+}
+.path b{display:block;font-size:12px;margin-bottom:6px}
+.path span{font-size:11px;color:var(--muted);line-height:1.8}
+@media(max-width:900px){
+  .intro-grid{grid-template-columns:1fr}
+  .intro-wide{grid-column:auto}
+  .semesters{grid-template-columns:repeat(2,1fr)}
+  .path-row{grid-template-columns:1fr}
+}
+@media(max-width:520px){.semesters{grid-template-columns:1fr}}
+
+/* ---------- FIELDS ---------- */
+.fields{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;
+}
+.field{background:var(--bg);padding:36px 30px;transition:background .3s;cursor:default}
+.field:hover{background:var(--surface)}
+.field .n{
+  font-size:10px;color:var(--dim);letter-spacing:.2em;
+  font-weight:600;margin-bottom:26px;
+}
+.field .ico{
+  width:40px;height:40px;border-radius:10px;
+  border:1px solid var(--line2);
+  display:grid;place-items:center;color:var(--accent);
+  font-size:15px;margin-bottom:26px;
+  transition:.3s;
+}
+.field:hover .ico{border-color:var(--accent);box-shadow:0 0 24px -8px var(--accent)}
+.field h3{font-size:16px;font-weight:600;margin-bottom:12px;letter-spacing:-.01em}
+.field p{font-size:12.5px;color:var(--muted);line-height:1.9}
+@media(max-width:900px){.fields{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fields{grid-template-columns:1fr}}
+
+/* ---------- CAREERS ---------- */
+.careers{display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.career{
+  background:var(--bg);padding:26px 32px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:28px;
+  align-items:center;transition:background .25s;
+}
+.career:hover{background:var(--surface)}
+.career .idx{
+  font-size:11px;color:var(--dim);font-weight:600;
+  letter-spacing:.15em;font-variant-numeric:tabular-nums;
+}
+.career .body h3{font-size:15.5px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.career .body p{font-size:12.5px;color:var(--muted);line-height:1.8}
+.career .where{
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;text-align:left;
+  white-space:nowrap;
+}
+.career .where::before{content:'— ';color:var(--accent)}
+@media(max-width:700px){
+  .career{grid-template-columns:auto 1fr;gap:20px}
+  .career .where{grid-column:2;text-align:right;margin-top:8px}
+}
+
+/* ---------- QUOTE ---------- */
+.quote{
+  max-width:960px;margin:0 auto;
+  padding:64px 52px;
+  border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(160deg,var(--surface),var(--bg));
+  position:relative;overflow:hidden;
+}
+.quote::before{
+  content:'"';
+  position:absolute;top:-40px;right:24px;
+  font-size:220px;font-weight:800;color:var(--accent);
+  opacity:.06;font-family:Georgia,serif;line-height:1;
+}
+.quote .tag{
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.quote .tag::before{
+  content:'';width:24px;height:1px;background:var(--accent);
+}
+.quote blockquote{
+  font-size:clamp(20px,2.4vw,28px);
+  font-weight:500;line-height:1.7;letter-spacing:-.02em;
+  color:var(--txt);
+}
+.quote blockquote em{
+  font-style:normal;
+  background:linear-gradient(120deg,#00e5ff,#7c5cff);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.quote .author{
+  margin-top:32px;padding-top:26px;
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--muted);letter-spacing:.14em;
+  text-transform:uppercase;font-weight:500;
+}
+.quote .author b{color:var(--txt);font-weight:600}
+@media(max-width:600px){
+  .quote{padding:44px 26px}
+  .quote::before{font-size:150px;top:-20px;right:14px}
+}
+
+/* ---------- CTA ---------- */
+#cta{text-align:center;border-top:1px solid var(--line)}
+#cta h2{
+  font-size:clamp(32px,5.5vw,64px);
+  font-weight:800;letter-spacing:-.035em;line-height:1.08;
+  max-width:760px;margin:0 auto 26px;
+}
+#cta h2 em{
+  font-style:normal;
+  background:linear-gradient(120deg,#00e5ff,#7c5cff);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+#cta p{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto 44px;line-height:2}
+#cta .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{
+  padding:44px 40px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--dim);letter-spacing:.08em;
+  text-transform:uppercase;font-weight:500;
+}
+footer b{color:var(--muted);font-weight:600}
+@media(max-width:600px){footer{flex-direction:column;gap:14px;text-align:center;padding:32px 22px}}
+
+/* ---------- REVEAL ---------- */
+.rv{opacity:0;transform:translateY(24px);
+  transition:opacity .9s cubic-bezier(.2,.9,.3,1),transform .9s cubic-bezier(.2,.9,.3,1)}
+.rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="mark"><i class="fa-solid fa-bolt"></i></div>
+    <div>
+      مهندسی انرژی
+      <small>Energy Engineering</small>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#crisis">بحران</a>
+    <a href="#intro">معرفی رشته</a>
+    <a href="#sim">شبیه‌ساز</a>
+    <a href="#fields">زیرشاخه‌ها</a>
+    <a href="#careers">مسیر شغلی</a>
+    <a href="#cta">همراه شو</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      همایش معرفی رشته · ورودی‌های جدید
+    </div>
+    <h1>آینده را<br><em>روشن</em> کن.</h1>
+    <p class="hero-desc">
+      <b>مهندسی انرژی</b> رشته‌ای است که فناوری، اقتصاد و سیاست را به هم می‌بافد — دقیقاً همان نقطه‌ای که ایران امروز به آن نیاز دارد.
+    </p>
+    <div class="hero-actions">
+      <a href="#sim" class="btn btn-primary">
+        شبیه‌ساز را ببین
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <a href="#intro" class="btn btn-ghost">
+        چرا این رشته؟
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div id="hero3d"></div>
+  </div>
+
+  <div class="hero-meta">
+    <span><i class="fa-solid fa-circle"></i> جلسه‌ی امروز</span>
+    <span><i class="fa-solid fa-circle"></i> سال ۱۴۰۵</span>
+    <span><i class="fa-solid fa-circle"></i> دانشکده مهندسی</span>
+  </div>
+</section>
+
+<!-- ================= CRISIS ================= -->
+<section id="crisis">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۱</span> چرا حالا؟</div>
+      <h2 class="sec-title">
+        ایران در قلب یک <em>بحران انرژی</em> است.
+      </h2>
+      <p class="sec-desc">
+        این اعداد را حفظ نکنید — بفهمید. هر کدام یک فرصت شغلی برای نسل بعدی مهندسان انرژی است.
+      </p>
+    </div>
+
+    <div class="stats rv">
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-bolt"></i></div>
+        <div class="num">۲۵ <small>گیگاوات</small></div>
+        <div class="lbl">کسری برق در پیک تابستان — معادل خاموشی ۲۵ میلیون خانه</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-fire"></i></div>
+        <div class="num">۹۰ <small>٪</small></div>
+        <div class="lbl">سهم سوخت فسیلی از تولید برق کشور</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-smog"></i></div>
+        <div class="num">۷۰ <small>٪</small></div>
+        <div class="lbl">سهم نیروگاه‌ها و خودروها در آلودگی کلان‌شهرها</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-sun"></i></div>
+        <div class="num">۳۰۰ <small>روز آفتابی</small></div>
+        <div class="lbl">پتانسیل خورشیدی ایران — از بالاترین‌های جهان</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE ================= -->
+<section style="padding-top:0">
+  <div class="wrap-sm">
+    <div class="quote rv">
+      <div class="tag">پیام همایش</div>
+      <blockquote>
+        بحران ناترازی برق فقط با نیروگاه ساخته‌شدن حل نمی‌شود.
+        باید <em>مهندسی فکر کنیم</em> — هم فنی، هم اقتصادی، هم اجتماعی.
+        این رشته برای همین ساخته شده.
+      </blockquote>
+      <div class="author">
+        <span>پنل افتتاحیه · دانشکده مهندسی</span>
+        <span><b>سال ۱۴۰۵</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= INTRO ================= -->
+<section id="intro">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۲</span> معرفی رشته</div>
+      <h2 class="sec-title">مهندسی انرژی؛ <em>دیدن کل سیستم</em>.</h2>
+      <p class="sec-desc">
+        محتوای این بخش بر اساس معرفی دورهٔ کارشناسی مهندسی انرژی شریف تنظیم شده: یک رشتهٔ میان‌رشته‌ای برای تحلیل، طراحی و بهینه‌سازی زنجیرهٔ انرژی از منبع تا مصرف.
+      </p>
+    </div>
+
+    <div class="intro-grid rv">
+      <article class="intro-card intro-wide">
+        <div class="tag">ماهیت رشته</div>
+        <h3>یک مسئله را فقط از زاویهٔ یک مهندسی نگاه نمی‌کنی.</h3>
+        <p>
+          مهندس انرژی باید زنجیرهٔ انرژی را از استخراج و تبدیل تا انتقال، توزیع و مصرف ببیند
+          و هم‌زمان محدودیت‌های فنی، اقتصادی و زیست‌محیطی را در تصمیم‌گیری وارد کند.
+          این رشته در مرز مکانیک، برق، شیمی، فیزیک، اقتصاد و مدل‌سازی قرار می‌گیرد.
+        </p>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">ساختار دوره</div>
+        <h3>۱۴۰ واحد · ۸ نیمسال پیشنهادی</h3>
+        <p>برنامهٔ بازنگری‌شدهٔ ۱۴۰۰؛ شامل پایه، دروس اصلی، عمومی، اختیاری، کارآموزی و پروژهٔ کارشناسی.</p>
+        <div class="path-row">
+          <div class="path"><b>۳۵ واحد</b><span>پایه</span></div>
+          <div class="path"><b>۶۳ واحد</b><span>اصلی</span></div>
+          <div class="path"><b>۲۲ واحد</b><span>عمومی</span></div>
+        </div>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">مهارت‌ها</div>
+        <h3>از ترمودینامیک تا داده</h3>
+        <ul>
+          <li>حرارت، سیالات، برق و کنترل</li>
+          <li>مدل‌سازی با Python / MATLAB</li>
+          <li>بهینه‌سازی و برنامه‌ریزی ریاضی</li>
+          <li>اقتصادسنجی، داده و تحلیل سناریو</li>
+          <li>سیستم‌نگری و تصمیم‌گیری</li>
+        </ul>
+      </article>
+
+      <article class="intro-card intro-wide">
+        <div class="tag">هشت نیمسال در یک نگاه</div>
+        <h3>مسیر از پایه‌های مهندسی تا پروژهٔ کارشناسی</h3>
+        <div class="semesters">
+          <div class="semester"><b>نیمسال ۱ · ۱۷ واحد</b><span>ریاضی ۱، فیزیک ۱، آزمایشگاه فیزیک، شیمی، برنامه‌سازی، آشنایی با انرژی، ادبیات</span></div>
+          <div class="semester"><b>نیمسال ۲ · ۱۸ واحد</b><span>ریاضی ۲، فیزیک ۲، آزمایشگاه فیزیک، اقتصاد، آزمایشگاه شیمی، معادلات، نقشه‌کشی</span></div>
+          <div class="semester"><b>نیمسال ۳ · ۲۰ واحد</b><span>محاسبات عددی، استاتیک، ترمودینامیک ۱، سیالات، ریاضی مهندسی، الکترونیک</span></div>
+          <div class="semester"><b>نیمسال ۴ · ۲۰ واحد</b><span>ترمودینامیک ۲، انتقال حرارت، سیستم‌های انرژی الکتریکی ۱، مقاومت، برنامه‌ریزی ریاضی، آمار</span></div>
+          <div class="semester"><b>نیمسال ۵ · ۱۹ واحد</b><span>آزمایشگاه ترمودینامیک، کنترل، تحلیل سیستم‌های انرژی، اقتصادسنجی، برق ۲، تبدیل انرژی</span></div>
+          <div class="semester"><b>نیمسال ۶ · ۱۵ واحد</b><span>آزمایشگاه برق، تجدیدپذیرها، انتگراسیون فرایند، ممیزی انرژی، زبان و عمومی</span></div>
+          <div class="semester"><b>نیمسال ۷ · ۱۶ واحد</b><span>زبان تخصصی، اختیاری‌ها، آثار زیست‌محیطی انرژی، کارآموزی و اقتصاد انرژی</span></div>
+          <div class="semester"><b>نیمسال ۸ · ۱۵ واحد</b><span>چهار درس اختیاری و پروژهٔ کارشناسی</span></div>
+        </div>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">مسیرهای تخصصی</div>
+        <h3>سه جهت‌گیری پیشنهادی</h3>
+        <div class="path-row">
+          <div class="path"><b>فنی</b><span>نیروگاه، تبدیل انرژی، حرارت و سیالات</span></div>
+          <div class="path"><b>سیستمی</b><span>بهینه‌سازی، تحلیل، اقتصاد و سیاست‌گذاری</span></div>
+          <div class="path"><b>پاک</b><span>خورشیدی، باد، هیدروژن و پایداری</span></div>
+        </div>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">تجدیدپذیرها</div>
+        <h3>فقط خورشیدی نیست</h3>
+        <p>در هستهٔ تخصصی رشته با خورشیدی، باد، زیست‌توده، زمین‌گرمایی، هیدروژن و پیل سوختی روبه‌رو می‌شوی.</p>
+      </article>
+
+      <article class="intro-card intro-wide">
+        <div class="tag">بازار کار و اپلای</div>
+        <h3>از نیروگاه و نفت‌وگاز تا استارتاپ و پژوهش</h3>
+        <p>
+          مسیرهای کاری شامل صنعت برق و نیروگاه، نفت و گاز و پتروشیمی، تجدیدپذیرها، مشاوره و ممیزی انرژی،
+          شرکت‌های مهندسی و EPC، سیاست‌گذاری، فناوری‌های نو، تحلیل داده و مالی انرژی و پژوهش است.
+          برای ادامهٔ تحصیل نیز مسیرهایی مانند سیستم‌های انرژی، مکانیک/حرارتی، برق/قدرت، مهندسی شیمی،
+          پایداری و سیاست اقلیم، اقتصاد انرژی، تحقیق در عملیات و علم دادهٔ انرژی قابل پیگیری‌اند.
+        </p>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">برای چه کسی؟</div>
+        <h3>اگر «سیستم» برایت جذاب‌تر از «یک قطعه» است…</h3>
+        <p>علاقه به ریاضی و فیزیک، حل مسئلهٔ واقعی، مدل‌سازی، نرم‌افزار، اقتصاد و نگاه میان‌رشته‌ای، نشانه‌های خوبی برای انتخاب این رشته‌اند.</p>
+      </article>
+
+      <article class="intro-card">
+        <div class="tag">یک توصیهٔ کاربردی</div>
+        <h3>از ترم‌های اول پروژه بساز</h3>
+        <p>Python و Excel را جدی بگیر و در کنار درس‌ها یک ابزار شبیه‌سازی و تحلیل انرژی یاد بگیر؛ تجربهٔ پروژه‌ای و مهارت نرم‌افزاری برای رزومه اهمیت زیادی دارد.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR ================= -->
+<section id="sim">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۳</span> شبیه‌ساز تعاملی</div>
+      <h2 class="sec-title">
+        سبد انرژی را <em>خودت بساز</em>.
+      </h2>
+      <p class="sec-desc">
+        اسلایدرها را حرکت بده و ببین چطور یک تصمیم مهندسی، آسمان، اقتصاد و امنیت کشور را تغییر می‌دهد.
+      </p>
+    </div>
+
+    <div class="sim-wrap rv">
+      <div class="sim-panel">
+        <h3>ترکیب تولید برق <span id="totalOut">۱۰۰٪</span></h3>
+
+        <div class="slider" style="--c:#ffc43d">
+          <div class="slider-head">
+            <span class="name"><i></i> خورشیدی</span>
+            <span class="val" id="v-solar">۲٪</span>
+          </div>
+          <input type="range" id="s-solar" min="0" max="100" value="2">
+        </div>
+
+        <div class="slider" style="--c:#5eead4">
+          <div class="slider-head">
+            <span class="name"><i></i> بادی</span>
+            <span class="val" id="v-wind">۴٪</span>
+          </div>
+          <input type="range" id="s-wind" min="0" max="100" value="4">
+        </div>
+
+        <div class="slider" style="--c:#a78bfa">
+          <div class="slider-head">
+            <span class="name"><i></i> هسته‌ای</span>
+            <span class="val" id="v-nuclear">۲٪</span>
+          </div>
+          <input type="range" id="s-nuclear" min="0" max="100" value="2">
+        </div>
+
+        <div class="slider" style="--c:#38bdf8">
+          <div class="slider-head">
+            <span class="name"><i></i> برق‌آبی</span>
+            <span class="val" id="v-hydro">۱۰٪</span>
+          </div>
+          <input type="range" id="s-hydro" min="0" max="100" value="10">
+        </div>
+
+        <div class="slider" style="--c:#fb923c">
+          <div class="slider-head">
+            <span class="name"><i></i> گازی / فسیلی</span>
+            <span class="val" id="v-gas">۸۲٪</span>
+          </div>
+          <input type="range" id="s-gas" min="0" max="100" value="82">
+        </div>
+
+        <div class="scenario-grid" aria-label="سناریوهای آماده">
+          <button class="scenario active" data-scenario="now" onclick="preset('now')">ایران امروز<small>وضعیت پایه</small></button>
+          <button class="scenario" data-scenario="green" onclick="preset('green')">گذار سبز<small>خورشیدی + بادی</small></button>
+          <button class="scenario" data-scenario="solar" onclick="preset('solar')">انقلاب خورشیدی<small>اوج سرمایه‌گذاری خورشیدی</small></button>
+          <button class="scenario" data-scenario="wind" onclick="preset('wind')">کریدور بادی<small>توسعه باد در مقیاس بزرگ</small></button>
+          <button class="scenario" data-scenario="nuclear" onclick="preset('nuclear')">پایه هسته‌ای<small>برق پایدار پایه</small></button>
+          <button class="scenario" data-scenario="hydro" onclick="preset('hydro')">خشکسالی آبی<small>کاهش سهم برق‌آبی</small></button>
+          <button class="scenario" data-scenario="gas" onclick="preset('gas')">بحران سوخت<small>وابستگی شدید به گاز</small></button>
+          <button class="scenario" data-scenario="heat" onclick="preset('heat')">موج گرما<small>تقاضای سنگین تابستان</small></button>
+          <button class="scenario" data-scenario="industry" onclick="preset('industry')">جهش صنعتی<small>رشد تقاضای صنایع</small></button>
+          <button class="scenario" data-scenario="blackout" onclick="preset('blackout')">لبه خاموشی<small>شبکه در وضعیت بحرانی</small></button>
+          <button class="scenario" data-scenario="cheap" onclick="preset('cheap')">ارزان اما آلوده<small>هزینه کم، آلودگی بالا</small></button>
+          <button class="scenario" data-scenario="independent" onclick="preset('independent')">استقلال انرژی<small>تنوع منابع و تاب‌آوری</small></button>
+        </div>
+        <div class="scenario-info" id="scenarioInfo">وضعیت پایه شبکه ایران؛ حالا سعی کن بدون افتادن در خاموشی، آلودگی و وابستگی سوخت را پایین بیاوری.</div>
+      </div>
+
+      <div class="sim-visual">
+        <canvas id="simCanvas"></canvas>
+        <div class="city-credit">پس‌زمینه: تهران، برج آزادی و میلاد · NavMou · CC BY-SA 4.0</div>
+        <div class="sim-status">
+          <span id="simStatus">سبد متوازن</span>
+          <span>پیش‌نمایش زنده</span>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="lbl"><i class="fa-solid fa-coins"></i> هزینه تولید</div>
+            <div class="val" id="m-cost">—</div>
+          </div>
+          <div class="metric">
+            <div class="lbl"><i class="fa-solid fa-smog"></i> شدت کربن</div>
+            <div class="val" id="m-co2">—</div>
+          </div>
+          <div class="metric">
+            <div class="lbl"><i class="fa-solid fa-shield-halved"></i> امنیت انرژی</div>
+            <div class="val" id="m-sec">—</div>
+          </div>
+          <div class="metric">
+            <div class="lbl"><i class="fa-solid fa-plug-circle-check"></i> پایداری شبکه</div>
+            <div class="val" id="m-rel">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIELDS ================= -->
+<section id="fields">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۴</span> زیرشاخه‌ها</div>
+      <h2 class="sec-title">
+        یک رشته، <em>شش مسیر</em> متفاوت.
+      </h2>
+      <p class="sec-desc">
+        هر زیرشاخه، یک حرفه‌ی مستقل با تقاضای رو به رشد در ایران و جهان است.
+      </p>
+    </div>
+
+    <div class="fields rv">
+      <div class="field">
+        <div class="n">01</div>
+        <div class="ico"><i class="fa-solid fa-solar-panel"></i></div>
+        <h3>انرژی‌های تجدیدپذیر</h3>
+        <p>طراحی مزارع خورشیدی، بادی و هیدروژن سبز — از سایت‌یابی تا اتصال به شبکه.</p>
+      </div>
+      <div class="field">
+        <div class="n">02</div>
+        <div class="ico"><i class="fa-solid fa-microchip"></i></div>
+        <h3>شبکه‌های هوشمند</h3>
+        <p>کنتور دیجیتال، پیش‌بینی مصرف با هوش مصنوعی، مدیریت بار و خودترمیمی شبکه.</p>
+      </div>
+      <div class="field">
+        <div class="n">03</div>
+        <div class="ico"><i class="fa-solid fa-battery-full"></i></div>
+        <h3>ذخیره‌سازی انرژی</h3>
+        <p>باتری‌های نسل جدید، ذخیره‌سازهای حرارتی، پمپ‌استوریج و Power-to-X.</p>
+      </div>
+      <div class="field">
+        <div class="n">04</div>
+        <div class="ico"><i class="fa-solid fa-chart-line"></i></div>
+        <h3>اقتصاد و بازار انرژی</h3>
+        <p>مدل‌سازی بازار برق، قیمت‌گذاری، تحلیل هزینه-فایده و سیاست‌گذاری.</p>
+      </div>
+      <div class="field">
+        <div class="n">05</div>
+        <div class="ico"><i class="fa-solid fa-leaf"></i></div>
+        <h3>محیط زیست و کربن</h3>
+        <p>ردپای کربن، مسیر کربن‌زدایی، حذف مازوت و انطباق با توافق پاریس.</p>
+      </div>
+      <div class="field">
+        <div class="n">06</div>
+        <div class="ico"><i class="fa-solid fa-industry"></i></div>
+        <h3>بهینه‌سازی صنعتی</h3>
+        <p>بازیافت حرارت، موتورهای پربازده، ممیزی انرژی و ISO 50001.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAREERS ================= -->
+<section id="careers">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۵</span> مسیر شغلی</div>
+      <h2 class="sec-title">
+        بعد از فارغ‌التحصیلی <em>کجا کار می‌کنی</em>؟
+      </h2>
+      <p class="sec-desc">
+        شش مسیر واقعی که فارغ‌التحصیلان مهندسی انرژی امروز انتخاب می‌کنند.
+      </p>
+    </div>
+
+    <div class="careers rv">
+      <div class="career">
+        <div class="idx">01</div>
+        <div class="body">
+          <h3>مهندس طراحی نیروگاه تجدیدپذیر</h3>
+          <p>طراحی، مدل‌سازی و اجرای پروژه‌های خورشیدی و بادی از مقیاس خانگی تا نیروگاهی.</p>
+        </div>
+        <div class="where">وزارت نیرو · ساتبا</div>
+      </div>
+      <div class="career">
+        <div class="idx">02</div>
+        <div class="body">
+          <h3>تحلیلگر بازار و اقتصاد انرژی</h3>
+          <p>پیش‌بینی قیمت، مدل‌سازی بازار برق و بهینه‌سازی سبد سرمایه‌گذاری انرژی.</p>
+        </div>
+        <div class="where">بورس انرژی · مشاوران</div>
+      </div>
+      <div class="career">
+        <div class="idx">03</div>
+        <div class="body">
+          <h3>متخصص شبکه هوشمند</h3>
+          <p>طراحی سیستم‌های SCADA، کنتور هوشمند، مدیریت بار و امنیت سایبری شبکه.</p>
+        </div>
+        <div class="where">توانیر · استارتاپ‌ها</div>
+      </div>
+      <div class="career">
+        <div class="idx">04</div>
+        <div class="body">
+          <h3>مشاور سیاست‌گذاری انرژی</h3>
+          <p>تدوین قوانین، طراحی یارانه‌های هدفمند و برنامه‌ریزی گذار انرژی کشور.</p>
+        </div>
+        <div class="where">مجلس · مرکز پژوهش‌ها</div>
+      </div>
+      <div class="career">
+        <div class="idx">05</div>
+        <div class="body">
+          <h3>پژوهشگر ذخیره‌سازی و هیدروژن</h3>
+          <p>توسعه باتری‌های نسل جدید، سلول‌های سوختی و فناوری Power-to-X.</p>
+        </div>
+        <div class="where">دانشگاه · پژوهشگاه نیرو</div>
+      </div>
+      <div class="career">
+        <div class="idx">06</div>
+        <div class="body">
+          <h3>مهندس بین‌المللی انرژی</h3>
+          <p>کار در پروژه‌های انرژی منطقه و جهان — با تقاضای بسیار بالا برای متخصصان ایرانی.</p>
+        </div>
+        <div class="where">منطقه · اروپا · آسیای مرکزی</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section id="cta">
+  <div class="wrap">
+    <div class="rv">
+      <h2>آینده‌ی انرژی ایران<br>با <em>تو</em> ساخته می‌شود.</h2>
+      <p>
+        اگر می‌خواهی اثری واقعی بگذاری — نه فقط در آزمایشگاه، بلکه در خیابان و زندگی مردم —
+        این رشته جای توست.
+      </p>
+      <div class="actions">
+        <a href="#sim" class="btn btn-primary">
+          <i class="fa-solid fa-rotate-left"></i>
+          بازگشت به شبیه‌ساز
+        </a>
+        <a href="#hero" class="btn btn-ghost">
+          <i class="fa-solid fa-arrow-up"></i>
+          ابتدای صفحه
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>ساخته‌شده برای همایش معرفی رشته <b>مهندسی انرژی</b></span>
+  <span>۱۴۰۵ · تهران</span>
+</footer>
+
+</main>
+
+<script>
+/* ===================================================
+   HELPERS
+   =================================================== */
+const fa = n => Number(n).toLocaleString('fa-IR', {maximumFractionDigits:0});
+const fa1 = n => Number(n).toLocaleString('fa-IR', {maximumFractionDigits:1});
+
+/* ===================================================
+   NAV SHRINK
+   =================================================== */
+addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('compact', scrollY > 40);
+});
+
+/* ===================================================
+   REVEAL ON SCROLL
+   =================================================== */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold: 0.14});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ===================================================
+   HERO 3D — ABSTRACT ENERGY CORE
+   A slow-rotating wireframe icosahedron with orbiting
+   energy particles — symbol of the energy field itself.
+   =================================================== */
+(function(){
+  const container = document.getElementById('hero3d');
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  camera.position.set(0, 0, 6.2);
+
+  const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  if (THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
+  container.appendChild(renderer.domElement);
+
+  // lights
+  const key = new THREE.DirectionalLight(0xffffff, 1.0);
+  key.position.set(-2.2, 3.2, 3.0);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0x00e5ff, 2.2);
+  rim.position.set(3.5, 1.5, -2.5);
+  scene.add(rim);
+  const rim2 = new THREE.DirectionalLight(0x7c5cff, 1.4);
+  rim2.position.set(-3.5, 0.4, -2.0);
+  scene.add(rim2);
+  const amb = new THREE.AmbientLight(0x2a3550, 0.5);
+  scene.add(amb);
+
+  // group
+  const core = new THREE.Group();
+  scene.add(core);
+
+  // central icosahedron (wireframe)
+  const icoGeo = new THREE.IcosahedronGeometry(1.5, 1);
+  const icoWire = new THREE.LineSegments(
+    new THREE.WireframeGeometry(icoGeo),
+    new THREE.LineBasicMaterial({ color: 0x00e5ff, transparent:true, opacity:0.7 })
+  );
+  core.add(icoWire);
+
+  // inner solid icosahedron — subtle glow
+  const innerMat = new THREE.MeshStandardMaterial({
+    color: 0x0a1826,
+    emissive: 0x00e5ff,
+    emissiveIntensity: 0.35,
+    roughness: 0.4,
+    metalness: 0.6,
+    flatShading: true
+  });
+  const inner = new THREE.Mesh(new THREE.IcosahedronGeometry(1.42, 0), innerMat);
+  core.add(inner);
+
+  // second outer shell — larger, opposite rotation
+  const outerWire = new THREE.LineSegments(
+    new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(2.05, 0)),
+    new THREE.LineBasicMaterial({ color: 0x7c5cff, transparent:true, opacity:0.4 })
+  );
+  core.add(outerWire);
+
+  // orbit rings (thin)
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: 0x00e5ff, transparent:true, opacity:0.22, side:THREE.DoubleSide
+  });
+  const ring1 = new THREE.Mesh(new THREE.RingGeometry(2.4, 2.42, 96), ringMat);
+  ring1.rotation.x = Math.PI/2.4;
+  core.add(ring1);
+  const ring2 = new THREE.Mesh(new THREE.RingGeometry(2.75, 2.77, 96), ringMat.clone());
+  ring2.material.color.setHex(0x7c5cff);
+  ring2.material.opacity = 0.16;
+  ring2.rotation.x = -Math.PI/3.2;
+  ring2.rotation.z = Math.PI/5;
+  core.add(ring2);
+
+  // orbiting energy particles
+  const particleCount = 130;
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(particleCount * 3);
+  const pCol = new Float32Array(particleCount * 3);
+  const orbitData = [];
+  const palette = [0x00e5ff, 0x7c5cff, 0x42dcff, 0xa78bfa];
+
+  for (let i = 0; i < particleCount; i++){
+    const a = Math.random() * Math.PI * 2;
+    const b = Math.random() * Math.PI - Math.PI/2;
+    const r = 2.1 + Math.random() * 1.4;
+    const x = Math.cos(a) * Math.cos(b) * r;
+    const y = Math.sin(b) * r;
+    const z = Math.sin(a) * Math.cos(b) * r;
+    pPos[i*3] = x; pPos[i*3+1] = y; pPos[i*3+2] = z;
+    const c = new THREE.Color(palette[Math.floor(Math.random()*palette.length)]);
+    pCol[i*3] = c.r; pCol[i*3+1] = c.g; pCol[i*3+2] = c.b;
+    orbitData.push({ a, b, r, speed: 0.15 + Math.random()*0.4, phase: Math.random()*Math.PI*2 });
+  }
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
+  const pMat = new THREE.PointsMaterial({
+    size: 0.055, vertexColors: true, transparent:true, opacity:0.9,
+    blending: THREE.AdditiveBlending, depthWrite:false
+  });
+  const particles = new THREE.Points(pGeo, pMat);
+  core.add(particles);
+
+  // responsive sizing
+  function resize(){
+    const w = container.clientWidth, h = container.clientHeight;
+    if (w < 4 || h < 4) return;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+  resize();
+  addEventListener('resize', resize);
+  setTimeout(resize, 60);
+  setTimeout(resize, 320);
+
+  // animation
+  const t0 = performance.now();
+  function loop(){
+    requestAnimationFrame(loop);
+    const t = (performance.now() - t0) * 0.001;
+
+    // rotations
+    icoWire.rotation.y = t * 0.15;
+    icoWire.rotation.x = Math.sin(t * 0.3) * 0.15;
+    inner.rotation.y = -t * 0.08;
+    outerWire.rotation.y = -t * 0.1;
+    outerWire.rotation.x = t * 0.06;
+    ring1.rotation.z = t * 0.12;
+    ring2.rotation.z = -t * 0.08;
+    particles.rotation.y = t * 0.04;
+
+    // particles gentle breathing
+    const posArr = pGeo.attributes.position.array;
+    for (let i = 0; i < particleCount; i++){
+      const o = orbitData[i];
+      const a = o.a + t * o.speed * 0.15;
+      const b = o.b + Math.sin(t * 0.4 + o.phase) * 0.06;
+      const r = o.r + Math.sin(t * 0.6 + o.phase) * 0.12;
+      posArr[i*3]   = Math.cos(a) * Math.cos(b) * r;
+      posArr[i*3+1] = Math.sin(b) * r;
+      posArr[i*3+2] = Math.sin(a) * Math.cos(b) * r;
+    }
+    pGeo.attributes.position.needsUpdate = true;
+
+    // subtle scale pulse
+    const s = 1 + Math.sin(t * 0.8) * 0.02;
+    core.scale.setScalar(s);
+
+    renderer.render(scene, camera);
+  }
+  loop();
+})();
+
+/* ===================================================
+   ENERGY MIX SIMULATOR
+   =================================================== */
+const SOURCES = {
+  solar:   {name:'خورشیدی', color:'#ffc43d', lcoe:35,  co2:48,  base:0.20},
+  wind:    {name:'بادی',    color:'#5eead4', lcoe:30,  co2:11,  base:0.35},
+  nuclear: {name:'هسته‌ای', color:'#a78bfa', lcoe:110, co2:12,  base:0.92},
+  hydro:   {name:'برق‌آبی', color:'#38bdf8', lcoe:45,  co2:24,  base:0.50},
+  gas:     {name:'گازی',    color:'#fb923c', lcoe:65,  co2:490, base:0.90},
+};
+const sliderIds = ['solar','wind','nuclear','hydro','gas'];
+const sliders = {};
+sliderIds.forEach(id => {
+  const el = document.getElementById('s-' + id);
+  sliders[id] = el;
+  el.addEventListener('input', updateSim);
+});
+
+function getMix(){
+  const raw = {};
+  let total = 0;
+  sliderIds.forEach(id => { raw[id] = Number(sliders[id].value); total += raw[id]; });
+  if (total === 0) total = 1;
+  const mix = {};
+  sliderIds.forEach(id => { mix[id] = raw[id] / total * 100; });
+  return mix;
+}
+
+function updateSim(){
+  const mix = getMix();
+
+  sliderIds.forEach(id => {
+    document.getElementById('v-' + id).textContent = fa(Math.round(mix[id])) + '٪';
+  });
+
+  let cost = 0, co2 = 0, base = 0;
+  sliderIds.forEach(id => {
+    const w = mix[id] / 100;
+    cost += SOURCES[id].lcoe * w;
+    co2  += SOURCES[id].co2  * w;
+    base += SOURCES[id].base * w;
+  });
+  const renewableShare = mix.solar + mix.wind + mix.hydro;
+  const security = 100 - mix.gas * 0.75;
+  const reliability = base * 100;
+
+  document.getElementById('m-cost').innerHTML = fa1(cost) + '<small>$/MWh</small>';
+  document.getElementById('m-co2').innerHTML = fa(co2) + '<small>gCO₂/kWh</small>';
+  document.getElementById('m-sec').innerHTML = fa(security) + '<small>٪</small>';
+  document.getElementById('m-rel').innerHTML = fa(reliability) + '<small>٪</small>';
+
+  const statusEl = document.getElementById('simStatus');
+  let label = 'سبد متوازن';
+  if (co2 > 390) label = 'هشدار آلودگی شدید';
+  else if (security < 38) label = 'بحران وابستگی به سوخت';
+  else if (reliability < 48) label = 'هشدار ناپایداری شبکه';
+  else if (renewableShare > 55) label = 'گذار سبز موفق';
+  else if (renewableShare > 35) label = 'سبد کم‌کربن';
+  statusEl.textContent = label;
+
+  drawCity(mix);
+}
+
+/* ===================================================
+   CANVAS CITY VISUALIZATION
+   =================================================== */
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+let lastMix = {solar:2, wind:4, nuclear:2, hydro:10, gas:82};
+const anim = {turbine:0};
+
+function resizeCanvas(){
+  const r = canvas.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio, 2);
+  canvas.width  = r.width * dpr;
+  canvas.height = r.height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+resizeCanvas();
+addEventListener('resize', () => { resizeCanvas(); drawCity(lastMix); });
+
+function drawCity(mix){
+  lastMix = mix;
+  const W = canvas.width / Math.min(devicePixelRatio, 2);
+  const H = canvas.height / Math.min(devicePixelRatio, 2);
+  const t = performance.now() * 0.001;
+
+  const pol = Math.min(1, mix.gas / 100 * 1.1);
+
+  // Tehran photo backdrop is supplied by .sim-visual.
+  // Keep the canvas transparent so the real Tehran skyline remains visible.
+  ctx.clearRect(0, 0, W, H);
+
+  // atmospheric energy overlay
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.72);
+  skyGrad.addColorStop(0, `rgba(8,14,24,${0.18 + pol*0.20})`);
+  skyGrad.addColorStop(0.55, `rgba(12,24,38,${0.10 + pol*0.18})`);
+  skyGrad.addColorStop(1, `rgba(30,24,18,${0.16 + pol*0.18})`);
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, W, H * 0.76);
+
+  const groundY = H * 0.72;
+
+  // power sources
+  const sourceY = groundY + 14;
+
+  if (mix.solar > 1){
+    const count = Math.min(7, Math.max(1, Math.round(mix.solar / 9)));
+    const baseX = W * 0.07;
+    for (let i = 0; i < count; i++){
+      const x = baseX + i * 22;
+      const y = sourceY + 8;
+      ctx.strokeStyle = 'rgba(255,196,61,0.9)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, y - 14, 18, 10);
+      ctx.beginPath();
+      ctx.moveTo(x + 6, y - 14); ctx.lineTo(x + 6, y - 4);
+      ctx.moveTo(x + 12, y - 14); ctx.lineTo(x + 12, y - 4);
+      ctx.moveTo(x, y - 9); ctx.lineTo(x + 18, y - 9);
+      ctx.stroke();
+    }
+  }
+
+  if (mix.wind > 1){
+    const count = Math.min(4, Math.max(1, Math.round(mix.wind / 10)));
+    const baseX = W * 0.30;
+    for (let i = 0; i < count; i++){
+      const x = baseX + i * 26;
+      const y = sourceY + 20;
+      ctx.strokeStyle = 'rgba(94,234,212,0.9)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y - 34); ctx.stroke();
+      ctx.save();
+      ctx.translate(x, y - 34);
+      ctx.rotate(anim.turbine + i * 0.9);
+      for (let b = 0; b < 3; b++){
+        ctx.save();
+        ctx.rotate(b * Math.PI * 2 / 3);
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0, -14); ctx.stroke();
+        ctx.restore();
+      }
+      ctx.fillStyle = 'rgba(94,234,212,1)';
+      ctx.beginPath(); ctx.arc(0,0,1.5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  if (mix.nuclear > 2){
+    const x = W * 0.52;
+    const y = sourceY + 20;
+    ctx.strokeStyle = 'rgba(167,139,250,0.9)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x - 12, y);
+    ctx.quadraticCurveTo(x - 14, y - 30, x, y - 34);
+    ctx.quadraticCurveTo(x + 14, y - 30, x + 12, y);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(167,139,250,0.35)';
+    for (let s = 0; s < 4; s++){
+      const sy = y - 38 - s * 5 - (t * 10 % 5);
+      const sx = x + Math.sin(t + s) * 2.5;
+      ctx.beginPath(); ctx.arc(sx, sy, 3 + s * 0.5, 0, Math.PI*2); ctx.fill();
+    }
+  }
+
+  if (mix.hydro > 3){
+    const x = W * 0.72;
+    const y = sourceY + 20;
+    ctx.strokeStyle = 'rgba(56,189,248,0.9)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x - 18, y - 20);
+    ctx.lineTo(x + 18, y - 20);
+    ctx.lineTo(x + 12, y);
+    ctx.lineTo(x - 12, y);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(56,189,248,0.55)';
+    for (let w = 0; w < 3; w++){
+      const wy = y - 12 + w * 4;
+      ctx.beginPath(); ctx.moveTo(x - 5, wy); ctx.lineTo(x + 5, wy); ctx.stroke();
+    }
+  }
+
+  if (mix.gas > 5){
+    const x = W * 0.90;
+    const y = sourceY + 20;
+    ctx.strokeStyle = 'rgba(251,146,60,0.9)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x - 14, y - 20, 28, 20);
+    ctx.beginPath(); ctx.moveTo(x - 2, y - 20); ctx.lineTo(x - 2, y - 38);
+    ctx.moveTo(x + 2, y - 20); ctx.lineTo(x + 2, y - 38);
+    ctx.stroke();
+    if (pol > 0.2){
+      for (let s = 0; s < 5; s++){
+        const sy = y - 42 - s * 5 - (t * 18 % 5);
+        const sx = x + Math.sin(t * 0.6 + s) * 4;
+        ctx.fillStyle = `rgba(140,140,150,${Math.max(0, 0.35 - s * 0.06)})`;
+        ctx.beginPath(); ctx.arc(sx, sy, 4 + s * 0.6, 0, Math.PI*2); ctx.fill();
+      }
+    }
+  }
+
+  // smog overlay
+  if (pol > 0.15){
+    const smogGrad = ctx.createLinearGradient(0, 0, 0, H);
+    smogGrad.addColorStop(0, `rgba(140,110,80,${pol * 0.10})`);
+    smogGrad.addColorStop(1, `rgba(90,70,50,${pol * 0.22})`);
+    ctx.fillStyle = smogGrad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  ctx.strokeStyle = 'rgba(0,229,255,0.25)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, groundY);
+  ctx.lineTo(W, groundY);
+  ctx.stroke();
+}
+
+function lerpColor(a, b, t){
+  return [
+    Math.round(a[0] + (b[0]-a[0]) * t),
+    Math.round(a[1] + (b[1]-a[1]) * t),
+    Math.round(a[2] + (b[2]-a[2]) * t),
+  ];
+}
+
+function cityLoop(){
+  anim.turbine += 0.055;
+  drawCity(lastMix);
+  requestAnimationFrame(cityLoop);
+}
+
+/* ===================================================
+   PRESETS
+   =================================================== */
+const SCENARIOS = {
+  now:{values:{solar:2,wind:4,nuclear:2,hydro:10,gas:82},note:'وضعیت پایه شبکه ایران؛ حالا سعی کن بدون افتادن در خاموشی، آلودگی و وابستگی سوخت را پایین بیاوری.'},
+  green:{values:{solar:30,wind:25,nuclear:12,hydro:10,gas:23},note:'گذار سبز: سهم تجدیدپذیرها بالا رفته، اما باید مراقب پایداری شبکه و هزینه باشی.'},
+  solar:{values:{solar:52,wind:14,nuclear:8,hydro:8,gas:18},note:'انقلاب خورشیدی: تولید پاک جهش کرده؛ چالش اصلی، پایداری در زمان کمبود تابش است.'},
+  wind:{values:{solar:12,wind:48,nuclear:12,hydro:8,gas:20},note:'کریدور بادی: باد ستون اصلی سبد شده است؛ حالا نوسان تولید را مدیریت کن.'},
+  nuclear:{values:{solar:12,wind:10,nuclear:42,hydro:10,gas:26},note:'پایه هسته‌ای: برق پایدار زیاد شده، اما هزینه سرمایه‌گذاری و تنوع سبد مهم است.'},
+  hydro:{values:{solar:24,wind:24,nuclear:12,hydro:2,gas:38},note:'خشکسالی آبی: برق‌آبی تقریباً از دست رفته و فشار دوباره روی گاز و تجدیدپذیرها افتاده است.'},
+  gas:{values:{solar:4,wind:4,nuclear:4,hydro:8,gas:80},note:'بحران سوخت: گاز دوباره غالب شده؛ آلودگی و وابستگی را باید کنترل کنی.'},
+  heat:{values:{solar:18,wind:10,nuclear:8,hydro:8,gas:56},note:'موج گرما: مصرف بالا رفته و نیروگاه‌های گازی تحت فشارند؛ تاب‌آوری شبکه را حفظ کن.'},
+  industry:{values:{solar:20,wind:12,nuclear:18,hydro:8,gas:42},note:'جهش صنعتی: بار صنایع سنگین شده است؛ یک تصمیم بد می‌تواند پایداری شبکه را پایین بیاورد.'},
+  blackout:{values:{solar:3,wind:3,nuclear:1,hydro:5,gas:88},note:'لبه خاموشی: وابستگی شدید و حاشیه امن پایین؛ برای نجات شبکه باید سبد را متنوع کنی.'},
+  cheap:{values:{solar:8,wind:6,nuclear:0,hydro:6,gas:80},note:'ارزان اما آلوده: هزینه کوتاه‌مدت جذاب است، ولی بهای واقعی را در کربن و امنیت انرژی می‌بینی.'},
+  independent:{values:{solar:28,wind:22,nuclear:18,hydro:12,gas:20},note:'استقلال انرژی: سبد متنوع و تاب‌آور؛ هدف، کاهش وابستگی بدون قربانی کردن پایداری است.'}
+};
+
+function preset(kind){
+  const scenario=SCENARIOS[kind];
+  if(!scenario) return;
+  sliderIds.forEach(id=>{sliders[id].value=scenario.values[id];});
+  document.querySelectorAll('.scenario').forEach(btn=>btn.classList.toggle('active',btn.dataset.scenario===kind));
+  const info=document.getElementById('scenarioInfo');
+  if(info) info.textContent=scenario.note;
+  updateSim();
+}
+
+/* ===================================================
+   BOOT
+   =================================================== */
+preset('now');
+cityLoop();
+</script>
+</body>
+</html>
