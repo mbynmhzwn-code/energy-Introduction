@@ -183,6 +183,16 @@ p.sec-desc{
 @media(max-width:840px){.stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.stats{grid-template-columns:1fr}}
 
+/* ---------- NECESSITY ---------- */
+.necessity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+.necessity-card{position:relative;padding:24px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));overflow:hidden}
+.necessity-card:before{content:"";position:absolute;inset:auto -30px -45px auto;width:130px;height:130px;border-radius:50%;background:rgba(0,229,255,.06);filter:blur(2px)}
+.necessity-card .tag{font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.necessity-card h3{margin:0 0 10px;font-size:1.08rem;font-weight:600}
+.necessity-card p{margin:0;line-height:2;color:var(--muted);font-size:12.5px}
+.necessity-note{margin-top:14px;padding:16px 18px;border-right:3px solid var(--accent);border-radius:12px;background:rgba(0,229,255,.045);line-height:2;color:#d9e2f0;font-size:13px}
+@media(max-width:700px){.necessity-grid{grid-template-columns:1fr}.necessity-card{padding:19px}}
+
 /* ---------- SIMULATOR ---------- */
 #sim{background:linear-gradient(180deg,transparent,var(--bg2) 40%,var(--bg2) 60%,transparent)}
 .sim-unified{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)}
@@ -226,21 +236,6 @@ input[type=range]::-moz-range-thumb{
   background:var(--c);cursor:pointer;
 }
 
-.presets{
-  display:flex;gap:8px;flex-wrap:wrap;
-  margin-top:30px;padding-top:26px;
-  border-top:1px solid var(--line);
-}
-.preset{
-  flex:1;min-width:110px;padding:11px 12px;
-  border-radius:10px;font-family:inherit;font-size:11px;
-  font-weight:500;cursor:pointer;
-  color:var(--muted);background:transparent;
-  border:1px solid var(--line2);transition:.2s;
-  letter-spacing:.02em;
-}
-.preset:hover{color:var(--accent);border-color:var(--accent)}
-
 .sim-visual{
   background:
     linear-gradient(rgba(4,7,12,.28),rgba(4,7,12,.52)),
@@ -280,7 +275,7 @@ input[type=range]::-moz-range-thumb{
 @media(max-width:900px){.scenario-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.scenario-grid{grid-template-columns:1fr}.city-credit{bottom:96px;left:10px}}
 
-/* ---------- SANKEY FLOW SECTION (part of the unified sim card) ---------- */
+/* ---------- SANKEY FLOW SECTION ---------- */
 .sankey-card{
   background:var(--bg);border-top:1px solid var(--line);
   padding:32px;
@@ -488,6 +483,7 @@ footer b{color:var(--muted);font-weight:600}
   </div>
   <div class="nav-links">
     <a href="#crisis">بحران</a>
+    <a href="#necessity">ضرورت رشته</a>
     <a href="#intro">معرفی رشته</a>
     <a href="#sim">شبیه‌ساز</a>
     <a href="#fields">زیرشاخه‌ها</a>
@@ -586,6 +582,40 @@ footer b{color:var(--muted);font-weight:600}
         <div class="lbl">غلظت CO₂ اتمسفر زمین — بالاترین سطح در تاریخ بشر؛ تغییر اقلیم دیگر یک فرضیه نیست</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ================= NECESSITY ================= -->
+<section id="necessity" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-eyebrow"><span class="num">۰۱+</span> ضرورت رشته</div>
+      <h2 class="sec-title">چرا <em>مهندسی انرژی</em>؟</h2>
+      <p class="sec-desc">مسئله فقط کمبود برق نیست؛ زنجیرهٔ انرژی کشور هم‌زمان با چند چالش به‌هم‌پیوسته روبه‌روست و برای حل آن‌ها نگاه سیستمی لازم است.</p>
+    </div>
+    <div class="necessity-grid rv">
+      <article class="necessity-card">
+        <div class="tag">گاز</div>
+        <h3>ناترازی گاز و افت فشار مخازن</h3>
+        <p>رشد مصرف، محدودیت عرضه و افت فشار برخی مخازن گازی، تأمین سوخت نیروگاه‌ها و صنایع را دشوارتر می‌کند. طراحی سبد متنوع‌تر و بهینه‌سازی مصرف، بخشی از مسئلهٔ مهندسی انرژی است.</p>
+      </article>
+      <article class="necessity-card">
+        <div class="tag">سوخت حمل‌ونقل</div>
+        <h3>ناترازی بنزین</h3>
+        <p>فاصله میان تولید و مصرف بنزین، هزینه‌های اقتصادی و فشار بیشتری بر زنجیرهٔ انرژی ایجاد می‌کند؛ ازاین‌رو بهینه‌سازی مصرف، حمل‌ونقل و جایگزینی بخشی از سوخت‌ها اهمیت پیدا می‌کند.</p>
+      </article>
+      <article class="necessity-card">
+        <div class="tag">محیط زیست</div>
+        <h3>بحران آلودگی هوا</h3>
+        <p>ترکیب سوخت، بازده نیروگاه‌ها، مصرف ساختمان‌ها و حمل‌ونقل بر کیفیت هوای شهرها اثر می‌گذارد. مهندس انرژی باید اثرات زیست‌محیطی را در کنار هزینه و قابلیت اطمینان ببیند.</p>
+      </article>
+      <article class="necessity-card">
+        <div class="tag">اقلیم</div>
+        <h3>تغییر اقلیم و گذار انرژی</h3>
+        <p>کاهش شدت انتشار گازهای گلخانه‌ای، توسعهٔ انرژی‌های تجدیدپذیر، افزایش بهره‌وری و سازگاری با تغییرات اقلیمی، نیازمند ترکیب مهندسی، اقتصاد و تحلیل سیستم‌های انرژی است.</p>
+      </article>
+    </div>
+    <div class="necessity-note rv"><b>نکته:</b> همین مسائل به فرصت‌های تازه‌ای در بهینه‌سازی انرژی، محیط زیست، توسعهٔ تجدیدپذیرها و طراحی راهکارهای کاهش مصرف برای صنایع و ادارات تبدیل می‌شوند.</div>
   </div>
 </section>
 
@@ -906,7 +936,7 @@ footer b{color:var(--muted);font-weight:600}
         بعد از فارغ‌التحصیلی <em>کجا کار می‌کنی</em>؟
       </h2>
       <p class="sec-desc">
-        هفت مسیر واقعی که فارغ‌التحصیلان مهندسی انرژی امروز انتخاب می‌کنند.
+        نُه مسیر واقعی که فارغ‌التحصیلان مهندسی انرژی امروز انتخاب می‌کنند.
       </p>
     </div>
 
@@ -954,13 +984,29 @@ footer b{color:var(--muted);font-weight:600}
       <div class="career">
         <div class="idx">06</div>
         <div class="body">
-          <h3>کارشناس بهینه‌سازی انرژی و محیط‌زیست</h3>
-          <p>حسابرسی انرژی، طرح‌های صرفه‌جویی صنعتی و ساختمانی، و اجرای قراردادهای شرکت‌های خدمات انرژی (ESCO) با بازدهی تضمین‌شده.</p>
+          <h3>مهندس بهینه‌سازی انرژی و محیط زیست</h3>
+          <p>ممیزی انرژی، کاهش مصرف، بازیافت حرارت، کاهش انتشار و طراحی راهکارهای اقتصادی برای صنایع و ساختمان‌ها.</p>
         </div>
-        <div class="where">شرکت‌های ESCO · سازمان بهره‌وری انرژی</div>
+        <div class="where">مشاوران انرژی · صنایع · ساختمان</div>
       </div>
       <div class="career">
         <div class="idx">07</div>
+        <div class="body">
+          <h3>کارشناس شرکت خدمات انرژی (ESCO)</h3>
+          <p>شناسایی پروژه‌های صرفه‌جویی، ارزیابی اقتصادی، اجرای طرح‌های بهره‌وری و پایش نتایج صرفه‌جویی انرژی.</p>
+        </div>
+        <div class="where">ESCO · شرکت‌های خدمات انرژی</div>
+      </div>
+      <div class="career">
+        <div class="idx">08</div>
+        <div class="body">
+          <h3>توسعه‌دهنده پروژه‌های برق تجدیدپذیر</h3>
+          <p>طراحی و توسعه سامانه‌های خورشیدی و سایر منابع تجدیدپذیر برای صنایع و ادارات، از امکان‌سنجی تا بهره‌برداری.</p>
+        </div>
+        <div class="where">صنایع · ادارات · شرکت‌های انرژی</div>
+      </div>
+      <div class="career">
+        <div class="idx">09</div>
         <div class="body">
           <h3>مهندس بین‌المللی انرژی</h3>
           <p>کار در پروژه‌های انرژی منطقه و جهان — با تقاضای بسیار بالا برای متخصصان ایرانی.</p>
@@ -1027,8 +1073,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
 /* ===================================================
    HERO 3D — ABSTRACT ENERGY CORE
-   A slow-rotating wireframe icosahedron with orbiting
-   energy particles — symbol of the energy field itself.
    =================================================== */
 (function(){
   const container = document.getElementById('hero3d');
@@ -1042,7 +1086,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   if (THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // lights
   const key = new THREE.DirectionalLight(0xffffff, 1.0);
   key.position.set(-2.2, 3.2, 3.0);
   scene.add(key);
@@ -1055,11 +1098,9 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   const amb = new THREE.AmbientLight(0x2a3550, 0.5);
   scene.add(amb);
 
-  // group
   const core = new THREE.Group();
   scene.add(core);
 
-  // central icosahedron (wireframe)
   const icoGeo = new THREE.IcosahedronGeometry(1.5, 1);
   const icoWire = new THREE.LineSegments(
     new THREE.WireframeGeometry(icoGeo),
@@ -1067,7 +1108,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   );
   core.add(icoWire);
 
-  // inner solid icosahedron — subtle glow
   const innerMat = new THREE.MeshStandardMaterial({
     color: 0x0a1826,
     emissive: 0x00e5ff,
@@ -1079,14 +1119,12 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   const inner = new THREE.Mesh(new THREE.IcosahedronGeometry(1.42, 0), innerMat);
   core.add(inner);
 
-  // second outer shell — larger, opposite rotation
   const outerWire = new THREE.LineSegments(
     new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(2.05, 0)),
     new THREE.LineBasicMaterial({ color: 0x7c5cff, transparent:true, opacity:0.4 })
   );
   core.add(outerWire);
 
-  // orbit rings (thin)
   const ringMat = new THREE.MeshBasicMaterial({
     color: 0x00e5ff, transparent:true, opacity:0.22, side:THREE.DoubleSide
   });
@@ -1100,7 +1138,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   ring2.rotation.z = Math.PI/5;
   core.add(ring2);
 
-  // orbiting energy particles
   const particleCount = 130;
   const pGeo = new THREE.BufferGeometry();
   const pPos = new Float32Array(particleCount * 3);
@@ -1129,7 +1166,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   const particles = new THREE.Points(pGeo, pMat);
   core.add(particles);
 
-  // responsive sizing
   function resize(){
     const w = container.clientWidth, h = container.clientHeight;
     if (w < 4 || h < 4) return;
@@ -1142,13 +1178,11 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
   setTimeout(resize, 60);
   setTimeout(resize, 320);
 
-  // animation
   const t0 = performance.now();
   function loop(){
     requestAnimationFrame(loop);
     const t = (performance.now() - t0) * 0.001;
 
-    // rotations
     icoWire.rotation.y = t * 0.15;
     icoWire.rotation.x = Math.sin(t * 0.3) * 0.15;
     inner.rotation.y = -t * 0.08;
@@ -1158,7 +1192,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
     ring2.rotation.z = -t * 0.08;
     particles.rotation.y = t * 0.04;
 
-    // particles gentle breathing
     const posArr = pGeo.attributes.position.array;
     for (let i = 0; i < particleCount; i++){
       const o = orbitData[i];
@@ -1171,7 +1204,6 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
     }
     pGeo.attributes.position.needsUpdate = true;
 
-    // subtle scale pulse
     const s = 1 + Math.sin(t * 0.8) * 0.02;
     core.scale.setScalar(s);
 
@@ -1277,18 +1309,15 @@ function renderSankey(mix, co2, renewableShare){
 
   const W=1040, H=480, marginY=40, nodeW=14, hubW=26, gap=10;
   const usableH = H - marginY*2;
-  const nodeArea = usableH - gap*5; // worst case: 6 nodes in the right-hand column
+  const nodeArea = usableH - gap*5;
   const scale = nodeArea/100;
   const x1=170, x2=490, x3=800;
 
-  // left column: energy sources (tied live to the sliders)
   const leftNodes = layoutColumn(
     sliderIds, sliderIds.map(id=>mix[id]), sliderIds.map(id=>SOURCES[id].color),
     sliderIds.map(id=>SOURCES[id].name), scale, gap, usableH, marginY
   );
 
-  // right column: demand sectors + an illustrative emissions sink.
-  // emissionShare (0-22 pts) grows with the carbon intensity of the current mix.
   const emissionShare = Math.min(22, (co2/490)*22);
   const remain = 100-emissionShare;
   const sectorIds = ['industry','resid','transport','tourism','exportEcon'];
@@ -1298,7 +1327,6 @@ function renderSankey(mix, co2, renewableShare){
   const rightLabels = [...sectorIds.map(id=>SECTORS[id].label), 'انتشار CO₂'];
   const rightNodes = layoutColumn(rightIds, rightVals, rightColors, rightLabels, scale, gap, usableH, marginY);
 
-  // hub node: single bottleneck representing the national grid (100% of flow)
   const hubH = 100*scale;
   const hubY0 = marginY + (usableH-hubH)/2;
   const hub = {y0:hubY0, y1:hubY0+hubH};
@@ -1351,7 +1379,6 @@ function renderSankey(mix, co2, renewableShare){
   svg += `</svg>`;
   holder.innerHTML = svg;
 
-  // demand-side metrics
   const transportLink = linksHR.find(l=>l.label==='حمل‌ونقل');
   const transportCO2 = transportLink ? transportLink.value * (co2/490) : 0;
   const m1 = document.getElementById('sankey-m1');
@@ -1388,11 +1415,8 @@ function drawCity(mix){
 
   const pol = Math.min(1, mix.gas / 100 * 1.1);
 
-  // Tehran photo backdrop is supplied by .sim-visual.
-  // Keep the canvas transparent so the real Tehran skyline remains visible.
   ctx.clearRect(0, 0, W, H);
 
-  // atmospheric energy overlay
   const skyGrad = ctx.createLinearGradient(0, 0, 0, H * 0.72);
   skyGrad.addColorStop(0, `rgba(8,14,24,${0.18 + pol*0.20})`);
   skyGrad.addColorStop(0.55, `rgba(12,24,38,${0.10 + pol*0.18})`);
@@ -1401,8 +1425,6 @@ function drawCity(mix){
   ctx.fillRect(0, 0, W, H * 0.76);
 
   const groundY = H * 0.72;
-
-  // power sources
   const sourceY = groundY + 14;
 
   if (mix.solar > 1){
@@ -1502,7 +1524,6 @@ function drawCity(mix){
     }
   }
 
-  // smog overlay
   if (pol > 0.15){
     const smogGrad = ctx.createLinearGradient(0, 0, 0, H);
     smogGrad.addColorStop(0, `rgba(140,110,80,${pol * 0.10})`);
@@ -1517,14 +1538,6 @@ function drawCity(mix){
   ctx.moveTo(0, groundY);
   ctx.lineTo(W, groundY);
   ctx.stroke();
-}
-
-function lerpColor(a, b, t){
-  return [
-    Math.round(a[0] + (b[0]-a[0]) * t),
-    Math.round(a[1] + (b[1]-a[1]) * t),
-    Math.round(a[2] + (b[2]-a[2]) * t),
-  ];
 }
 
 function cityLoop(){
