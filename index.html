@@ -185,8 +185,8 @@ p.sec-desc{
 
 /* ---------- SIMULATOR ---------- */
 #sim{background:linear-gradient(180deg,transparent,var(--bg2) 40%,var(--bg2) 60%,transparent)}
-.sim-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2px;
-  border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--line)}
+.sim-unified{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg)}
+.sim-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2px;background:var(--line)}
 @media(max-width:960px){.sim-wrap{grid-template-columns:1fr}}
 .sim-panel{background:var(--bg);padding:32px}
 .sim-panel h3{
@@ -280,10 +280,10 @@ input[type=range]::-moz-range-thumb{
 @media(max-width:900px){.scenario-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.scenario-grid{grid-template-columns:1fr}.city-credit{bottom:96px;left:10px}}
 
-/* ---------- SANKEY FLOW CARD ---------- */
+/* ---------- SANKEY FLOW SECTION (part of the unified sim card) ---------- */
 .sankey-card{
-  margin-top:26px;background:var(--bg);border:1px solid var(--line);
-  border-radius:20px;padding:32px;
+  background:var(--bg);border-top:1px solid var(--line);
+  padding:32px;
 }
 .sankey-head{
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -565,6 +565,26 @@ footer b{color:var(--muted);font-weight:600}
         <div class="num">۳۰۰ <small>روز آفتابی</small></div>
         <div class="lbl">پتانسیل خورشیدی ایران — از بالاترین‌های جهان</div>
       </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-gauge-high"></i></div>
+        <div class="num">۳۵۰ <small>میلیون m³/day</small></div>
+        <div class="lbl">کسری روزانهٔ گاز کشور در پیک زمستان — «ناترازی گاز»</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-arrow-trend-down"></i></div>
+        <div class="num">~۷۰ <small>٪</small></div>
+        <div class="lbl">سهم میدان پارس‌جنوبی از گاز کشور؛ میدانی که وارد نیمهٔ دوم عمر و افت فشار مخازن شده</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-gas-pump"></i></div>
+        <div class="num">~۵ <small>میلیارد $</small></div>
+        <div class="lbl">واردات سالانهٔ بنزین و گازوئیل برای جبران «ناترازی سوخت»</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fa-solid fa-earth-americas"></i></div>
+        <div class="num">۴۳۰+ <small>ppm</small></div>
+        <div class="lbl">غلظت CO₂ اتمسفر زمین — بالاترین سطح در تاریخ بشر؛ تغییر اقلیم دیگر یک فرضیه نیست</div>
+      </div>
     </div>
   </div>
 </section>
@@ -703,7 +723,8 @@ footer b{color:var(--muted);font-weight:600}
       </p>
     </div>
 
-    <div class="sim-wrap rv">
+    <div class="sim-unified rv">
+    <div class="sim-wrap">
       <div class="sim-panel">
         <h3>ترکیب تولید برق <span id="totalOut">۱۰۰٪</span></h3>
 
@@ -818,6 +839,7 @@ footer b{color:var(--muted);font-weight:600}
         نسبت‌های نمونهٔ ثابت رسم شده، اما شدت انتشار CO₂ و شاخص اقتصادی به‌صورت زنده با ترکیب تولید برق در سمت راست تغییر می‌کنند.
       </p>
     </div>
+    </div>
   </div>
 </section>
 
@@ -884,7 +906,7 @@ footer b{color:var(--muted);font-weight:600}
         بعد از فارغ‌التحصیلی <em>کجا کار می‌کنی</em>؟
       </h2>
       <p class="sec-desc">
-        شش مسیر واقعی که فارغ‌التحصیلان مهندسی انرژی امروز انتخاب می‌کنند.
+        هفت مسیر واقعی که فارغ‌التحصیلان مهندسی انرژی امروز انتخاب می‌کنند.
       </p>
     </div>
 
@@ -931,6 +953,14 @@ footer b{color:var(--muted);font-weight:600}
       </div>
       <div class="career">
         <div class="idx">06</div>
+        <div class="body">
+          <h3>کارشناس بهینه‌سازی انرژی و محیط‌زیست</h3>
+          <p>حسابرسی انرژی، طرح‌های صرفه‌جویی صنعتی و ساختمانی، و اجرای قراردادهای شرکت‌های خدمات انرژی (ESCO) با بازدهی تضمین‌شده.</p>
+        </div>
+        <div class="where">شرکت‌های ESCO · سازمان بهره‌وری انرژی</div>
+      </div>
+      <div class="career">
+        <div class="idx">07</div>
         <div class="body">
           <h3>مهندس بین‌المللی انرژی</h3>
           <p>کار در پروژه‌های انرژی منطقه و جهان — با تقاضای بسیار بالا برای متخصصان ایرانی.</p>
